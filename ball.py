@@ -17,7 +17,11 @@ class Ball:
         self.y = y if y else random.randint(100, server.background.h - 100)
 
         # fill here
-
+        if not Ball.zombie_eat_sound:
+            Ball.zombie_eat_sound = load_wav('zombie_pickup.wav')
+            Ball.boy_eat_sound = load_wav('pickup.wav')
+            Ball.zombie_eat_sound.set_volume(32)
+            Ball.boy_eat_sound.set_volume(32)
 
 
     def draw(self):
@@ -33,7 +37,9 @@ class Ball:
         match group:
             case 'boy:ball':
                 # fill here
+                Ball.boy_eat_sound.play()
                 game_world.remove_object(self)
             case 'zombie:ball':
                 # fill here
+                Ball.zombie_eat_sound.play()
                 game_world.remove_object(self)
